@@ -1,16 +1,17 @@
-package main;
+package com.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JOptionPane;
 
+import jugueteria.JulioCepeda;
+
 public class Controlador implements ActionListener 
-{
+{	
 	Vista vis;
-	Modelo mod;
-	Bean bean;
-	public Controlador(Vista vis, Modelo mod)
+	JulioCepeda mod;
+	jugueteria.Juguete bean;
+	public Controlador(Vista vis, JulioCepeda mod)
 	{
 		this.vis = vis;
 		this.mod = mod;
@@ -19,8 +20,8 @@ public class Controlador implements ActionListener
 	//¿Por qué es necesario crear un método?
 	private void ejecutar() 
 	{
+		JulioCepeda.conectar();
 		vis.Lanzar();
-		
 //		parche para el problema de sincronizacion de hilos
 		while(!vis.termino)
 		{
@@ -38,10 +39,10 @@ public class Controlador implements ActionListener
 		vis.btnSiguiente.addActionListener(this);
 		vis.btnUltimo.addActionListener(this);
 		
-		mod.leerJuguete();//******
-		if(mod.getInventarioSize()>0)
+		JulioCepeda.leerJuguetes();//******
+		if(JulioCepeda.getInventarioSize()>0) //mod.getInventarioSize()>0
 		{
-			bean = mod.getJuguete(0);
+			bean = JulioCepeda.getJuguete(0);
 			rellenarCampos();
 		}
 		else
@@ -55,9 +56,9 @@ public class Controlador implements ActionListener
 	{
 		if(e.getSource()==vis.btnPrimero)
 		{
-			if(mod.getInventarioSize()>0)
+			if(JulioCepeda.getInventarioSize()>0)
 			{
-				bean = mod.getJuguete(0);
+				bean = JulioCepeda.getJuguete(0);
 				rellenarCampos();
 			}
 			else
@@ -67,12 +68,12 @@ public class Controlador implements ActionListener
 		}
 		if(e.getSource()==vis.btnAnterior)
 		{
-			int indexAct = mod.getIndexOf(bean);
-			if(mod.getInventarioSize()>0 && indexAct-1>-1)
+			int indexAct = JulioCepeda.getIndexOf(bean);
+			if(JulioCepeda.getInventarioSize()>0 && indexAct-1>-1)
 			{
 				if(indexAct-1>-1)
 				{
-					bean = mod.getJuguete(indexAct-1);
+					bean = JulioCepeda.getJuguete(indexAct-1);
 					rellenarCampos();
 				}
 				else
@@ -87,13 +88,13 @@ public class Controlador implements ActionListener
 		}
 		if(e.getSource()==vis.btnSiguiente)
 		{
-			int indexAct = mod.getIndexOf(bean);
-			if(mod.getInventarioSize()>0)
+			int indexAct = JulioCepeda.getIndexOf(bean);
+			if(JulioCepeda.getInventarioSize()>0)
 			{
 				
-				if (indexAct+1<mod.getInventarioSize()) 
+				if (indexAct+1<JulioCepeda.getInventarioSize()) 
 				{
-					bean = mod.getJuguete(indexAct + 1);
+					bean = JulioCepeda.getJuguete(indexAct + 1);
 					rellenarCampos();
 				}
 				else
@@ -108,9 +109,9 @@ public class Controlador implements ActionListener
 		}
 		if(e.getSource()==vis.btnUltimo)
 		{
-			if(mod.getInventarioSize()>0)
+			if(JulioCepeda.getInventarioSize()>0)
 			{
-				bean = mod.getJuguete(mod.getInventarioSize()-1);
+				bean = JulioCepeda.getJuguete(JulioCepeda.getInventarioSize()-1);
 				rellenarCampos();
 			}
 			else

@@ -1,7 +1,6 @@
-package main;
+package com.main;
 
 import java.awt.EventQueue;
-import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -12,65 +11,71 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
+import java.awt.Font;
 
-public class Vista extends JFrame 
-{
+public class VistaPrototipo {
+
+	private JFrame frmJugueteria;
 	JTextField txtId;
 	JTextField txtNom;
-	JTextField txtPre;
-	JTextField txtCat;
-	JTextField txtMarc;
+	JTextField txtPrecio;
+	JTextField txtCategoria;
+	JTextField txtMarca;
 	JTextField txtStock;
-	JButton btnSiguiente;
-	JButton btnPrimero;
-	JButton btnAnterior;
-	JButton btnUltimo;
 	private JLabel lblId;
 	private JLabel lblNom;
 	private JLabel lblPrecio;
 	private JLabel lblCategoria;
 	private JLabel lblMarca;
 	private JLabel lblStock;
-	boolean termino = false;
+	JButton btnSiguiente;
+	JButton btnPrimero;
+	JButton btnAnterior;
+	JButton btnUltimo;
+	private JPanel panelData;
+
 	/**
 	 * Launch the application.
 	 * @wbp.parser.entryPoint
 	 */
-	public void Lanzar() 
+	public static void main(String[] ars) 
 	{
 		EventQueue.invokeLater(new Runnable() 
 		{
 			public void run() 
 			{
 				try {
-					crearGUI();
-//					setVisible(true);
-					termino = true;
+					VistaPrototipo vis = new VistaPrototipo();
+					vis.frmJugueteria.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
+	
+	
+	public VistaPrototipo() 
+	{
+		initialize();
+	}
 	/**
 	 * Create the application.
 	 */
-	public void crearGUI() 
-	{	
-		setVisible(true);
-		setTitle("Jugueteria");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JPanel contentPane = new JPanel();
-		setBounds(100, 100, 478, 307);
+	private void initialize() {
 		
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		frmJugueteria = new JFrame();
+		frmJugueteria.setTitle("Jugueteria");
+		frmJugueteria.setVisible(true);
+		frmJugueteria.setBounds(100, 100, 478, 307);
+		frmJugueteria.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmJugueteria.getContentPane().setLayout(null);
 		
-		JPanel panelData = new JPanel();
+		panelData = new JPanel();
 		panelData.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Data", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelData.setBounds(31, 19, 408, 112);
-		contentPane.add(panelData);
+		frmJugueteria.getContentPane().add(panelData);
 		panelData.setLayout(null);
 		
 		txtId = new JTextField();
@@ -83,20 +88,20 @@ public class Vista extends JFrame
 		panelData.add(txtNom);
 		txtNom.setColumns(10);
 		
-		txtPre = new JTextField();
-		txtPre.setBounds(98, 78, 86, 20);
-		panelData.add(txtPre);
-		txtPre.setColumns(10);
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(98, 78, 86, 20);
+		panelData.add(txtPrecio);
+		txtPrecio.setColumns(10);
 		
-		txtCat = new JTextField();
-		txtCat.setBounds(287, 16, 86, 20);
-		panelData.add(txtCat);
-		txtCat.setColumns(10);
+		txtCategoria = new JTextField();
+		txtCategoria.setBounds(287, 16, 86, 20);
+		panelData.add(txtCategoria);
+		txtCategoria.setColumns(10);
 		
-		txtMarc = new JTextField();
-		txtMarc.setBounds(287, 47, 86, 20);
-		panelData.add(txtMarc);
-		txtMarc.setColumns(10);
+		txtMarca = new JTextField();
+		txtMarca.setBounds(287, 47, 86, 20);
+		panelData.add(txtMarca);
+		txtMarca.setColumns(10);
 		
 		txtStock = new JTextField();
 		txtStock.setBounds(287, 78, 86, 20);
@@ -142,7 +147,7 @@ public class Vista extends JFrame
 		JPanel panelNav = new JPanel();
 		panelNav.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Navegation", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelNav.setBounds(31, 136, 408, 46);
-		contentPane.add(panelNav);
+		frmJugueteria.getContentPane().add(panelNav);
 		panelNav.setLayout(null);
 		
 		btnPrimero = new JButton("Primero");

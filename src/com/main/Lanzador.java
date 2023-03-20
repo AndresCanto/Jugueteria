@@ -1,11 +1,13 @@
-package main;
+package com.main;
+
+import jugueteria.JulioCepeda;
 
 public class Lanzador 
 {
 	public static void main(String[] args) 
 	{
 		Vista vis = new Vista();
-		Modelo mod = new Modelo();	
+		JulioCepeda mod = new JulioCepeda();
 		Controlador con = new Controlador(vis, mod);
 	}
 }
