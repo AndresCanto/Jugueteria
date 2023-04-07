@@ -118,8 +118,7 @@ public class Controlador implements ActionListener
 			{
 				JOptionPane.showMessageDialog(null, "Inventario vacio");
 			}
-		}
-		
+		}		
 	}
 	
 	private void rellenarCampos() 

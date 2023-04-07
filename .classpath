@@ -6,7 +6,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/ricar/eclipse-workspace-diplomadoJavaSE18/Jugueteria/libs/BaseDeDatos.jar">
+	<classpathentry kind="lib" path="libs/BaseDeDatos.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="libs/flatlaf-3.1.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
