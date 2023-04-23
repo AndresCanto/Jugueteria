@@ -1,26 +1,25 @@
-package com.main;
+package com.juguetes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JOptionPane;
 
-import jugueteria.JulioCepeda;
-
-public class Controlador implements ActionListener 
+public class ControladorJuguete implements ActionListener 
 {	
-	Vista vis;
-	JulioCepeda mod;
-	jugueteria.Juguete bean;
-	public Controlador(Vista vis, JulioCepeda mod)
+	VistaJuguete vis;
+	ModeloJuguete mod;
+//	JulioCepeda mod;
+	Juguete bean;
+	public ControladorJuguete(VistaJuguete vis, ModeloJuguete mod)
 	{
 		this.vis = vis;
 		this.mod = mod;
 		ejecutar();
 	}
 	//¿Por qué es necesario crear un método?
-	private void ejecutar() 
+	private void ejecutar() //run gui, add listeners, connect db, default values
 	{
-		JulioCepeda.conectar();
 		vis.Lanzar();
 //		parche para el problema de sincronizacion de hilos
 		while(!vis.termino)
@@ -33,16 +32,19 @@ public class Controlador implements ActionListener
 			}
 		}
 //		==================================================
-		
+		bloquearCampos();
 		vis.btnPrimero.addActionListener(this);
 		vis.btnAnterior.addActionListener(this);
 		vis.btnSiguiente.addActionListener(this);
 		vis.btnUltimo.addActionListener(this);
 		
-		JulioCepeda.leerJuguetes();//******
-		if(JulioCepeda.getInventarioSize()>0) //mod.getInventarioSize()>0
+		vis.btnCreate.addActionListener(this);
+		vis.btnUpdate.addActionListener(this);
+		vis.btnDelete.addActionListener(this);
+		mod.leerJuguetes();
+		if(mod.getInventarioSize()>0) //mod.getInventarioSize()>0
 		{
-			bean = JulioCepeda.getJuguete(0);
+			bean = mod.getJuguete(0);
 			rellenarCampos();
 		}
 		else
@@ -56,24 +58,24 @@ public class Controlador implements ActionListener
 	{
 		if(e.getSource()==vis.btnPrimero)
 		{
-			if(JulioCepeda.getInventarioSize()>0)
+			if(mod.getInventarioSize()>0)
 			{
-				bean = JulioCepeda.getJuguete(0);
+				bean = mod.getJuguete(0);
 				rellenarCampos();
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(null, "Inventario vacio");
+				JOptionPane.showMessageDialog(null, "Estas en el primer registro");
 			}
 		}
 		if(e.getSource()==vis.btnAnterior)
 		{
-			int indexAct = JulioCepeda.getIndexOf(bean);
-			if(JulioCepeda.getInventarioSize()>0 && indexAct-1>-1)
+			int indexAct = mod.getIndexOf(bean);
+			if(mod.getInventarioSize()>0 && indexAct-1>-1)
 			{
 				if(indexAct-1>-1)
 				{
-					bean = JulioCepeda.getJuguete(indexAct-1);
+					bean = mod.getJuguete(indexAct-1);
 					rellenarCampos();
 				}
 				else
@@ -88,13 +90,13 @@ public class Controlador implements ActionListener
 		}
 		if(e.getSource()==vis.btnSiguiente)
 		{
-			int indexAct = JulioCepeda.getIndexOf(bean);
-			if(JulioCepeda.getInventarioSize()>0)
+			int indexAct = mod.getIndexOf(bean);
+			if(mod.getInventarioSize()>0)
 			{
 				
-				if (indexAct+1<JulioCepeda.getInventarioSize()) 
+				if (indexAct+1<mod.getInventarioSize()) 
 				{
-					bean = JulioCepeda.getJuguete(indexAct + 1);
+					bean = mod.getJuguete(indexAct + 1);
 					rellenarCampos();
 				}
 				else
@@ -109,16 +111,34 @@ public class Controlador implements ActionListener
 		}
 		if(e.getSource()==vis.btnUltimo)
 		{
-			if(JulioCepeda.getInventarioSize()>0)
+			if(mod.getInventarioSize()>0)
 			{
-				bean = JulioCepeda.getJuguete(JulioCepeda.getInventarioSize()-1);
+				bean = mod.getJuguete(mod.getInventarioSize()-1);
 				rellenarCampos();
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(null, "Inventario vacio");
+				JOptionPane.showMessageDialog(null, "Estas en el ultimo registro");
 			}
-		}		
+		}	
+		if(e.getSource()==vis.btnCreate)
+		{
+			mod.crearJuguete();
+			bean = mod.getJuguete(mod.getInventarioSize()-1);
+			rellenarCampos();
+		}
+		if(e.getSource()==vis.btnUpdate)
+		{
+			mod.modificarJuguete(bean);
+			bean = mod.getJuguete(mod.getInventarioSize()-1);
+			rellenarCampos();
+		}
+		if(e.getSource()==vis.btnDelete)
+		{
+			mod.eliminarJuguete(""+bean.getId_jug());
+			bean = mod.getJuguete(mod.getInventarioSize()-1);
+			rellenarCampos();
+		}
 	}
 	
 	private void rellenarCampos() 
@@ -129,7 +149,6 @@ public class Controlador implements ActionListener
 		vis.txtMarc.setText(bean.getMarc_jug());
 		vis.txtCat.setText(""+bean.getCat_jug());
 		vis.txtStock.setText(""+bean.getStock_jug());
-		bloquearCampos();
 	}
 	private void vaciarCampos() 
 	{

@@ -1,37 +1,36 @@
-package com.vistas;
+package com.juguetes;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 
-import javax.swing.JButton;
-import javax.swing.border.EtchedBorder;
-import java.awt.Color;
-import java.awt.Font;
-
-public class VistaPrototipo 
+public class VistaJuguete extends JFrame 
 {
 	private JFrame frmJugueteria;
 	private JPanel pnlData;
 	private JLabel lblId;
 	private JLabel lblNom;
 	private JLabel lblPrecio;
-	private JLabel lblCategoria;
-	private JLabel lblMarca;
+	private JLabel lblCat;
+	private JLabel lblMarc;
 	private JLabel lblStock;
 	JTextField txtId;
 	JTextField txtNom;
-	JTextField txtPrecio;
-	JTextField txtCategoria;
-	JTextField txtMarca;
+	JTextField txtPre;
+	JTextField txtCat;
+	JTextField txtMarc;
 	JTextField txtStock;
 	JButton btnSiguiente;
 	JButton btnPrimero;
@@ -41,43 +40,45 @@ public class VistaPrototipo
 	JButton btnRead;
 	JButton btnUpdate;
 	JButton btnDelete;
-
+	boolean termino = false;	
 	/**
 	 * Launch the application.
 	 * @wbp.parser.entryPoint
 	 */
-	public static void main(String[] ars) 
+	public void Lanzar() 
 	{
 		try {
 		    UIManager.setLookAndFeel( new FlatDarkLaf() );
 		} catch( Exception ex ) {
 		    System.err.println( "Failed to initialize LaF" );
 		}
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try {
-					VistaPrototipo vis = new VistaPrototipo();
-					vis.frmJugueteria.setVisible(true);
-					vis.frmJugueteria.setLocationRelativeTo(null);
-					vis.frmJugueteria.setResizable(false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+//		EventQueue.invokeLater(new Runnable() 
+//		{
+//			public void run() 
+//			{
+//				try {
+//					crearGUI();
+//					frmJugueteria.setVisible(true);
+//					frmJugueteria.setLocationRelativeTo(null);
+//					frmJugueteria.setResizable(false);
+//					termino = true;
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+		
+		crearGUI();
+		frmJugueteria.setVisible(true);
+		frmJugueteria.setLocationRelativeTo(null);
+		frmJugueteria.setResizable(false);
+		termino = true;
 	}
-	
-	
-	public VistaPrototipo() 
-	{
-		initialize();
-	}
+
 	/**
 	 * Create the application.
 	 */
-	private void initialize() 
+	public void crearGUI() 
 	{	
 		frmJugueteria = new JFrame();
 		frmJugueteria.setTitle("Jugueteria");
@@ -101,20 +102,20 @@ public class VistaPrototipo
 		pnlData.add(txtNom);
 		txtNom.setColumns(10);
 		
-		txtPrecio = new JTextField();
-		txtPrecio.setBounds(98, 78, 86, 20);
-		pnlData.add(txtPrecio);
-		txtPrecio.setColumns(10);
+		txtPre = new JTextField();
+		txtPre.setBounds(98, 78, 86, 20);
+		pnlData.add(txtPre);
+		txtPre.setColumns(10);
 		
-		txtCategoria = new JTextField();
-		txtCategoria.setBounds(287, 16, 86, 20);
-		pnlData.add(txtCategoria);
-		txtCategoria.setColumns(10);
+		txtCat = new JTextField();
+		txtCat.setBounds(287, 16, 86, 20);
+		pnlData.add(txtCat);
+		txtCat.setColumns(10);
 		
-		txtMarca = new JTextField();
-		txtMarca.setBounds(287, 47, 86, 20);
-		pnlData.add(txtMarca);
-		txtMarca.setColumns(10);
+		txtMarc = new JTextField();
+		txtMarc.setBounds(287, 47, 86, 20);
+		pnlData.add(txtMarc);
+		txtMarc.setColumns(10);
 		
 		txtStock = new JTextField();
 		txtStock.setBounds(287, 78, 86, 20);
@@ -139,17 +140,17 @@ public class VistaPrototipo
 		pnlData.add(lblPrecio);
 		lblPrecio.setHorizontalAlignment(SwingConstants.TRAILING);
 		
-		lblCategoria = new JLabel("Categoria:");
-		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblCategoria.setBounds(194, 20, 83, 14);
-		pnlData.add(lblCategoria);
-		lblCategoria.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblCat = new JLabel("Categoria:");
+		lblCat.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblCat.setBounds(194, 20, 83, 14);
+		pnlData.add(lblCat);
+		lblCat.setHorizontalAlignment(SwingConstants.TRAILING);
 		
-		lblMarca = new JLabel("Marca:");
-		lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblMarca.setBounds(204, 49, 73, 14);
-		pnlData.add(lblMarca);
-		lblMarca.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblMarc = new JLabel("Marca:");
+		lblMarc.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblMarc.setBounds(204, 49, 73, 14);
+		pnlData.add(lblMarc);
+		lblMarc.setHorizontalAlignment(SwingConstants.TRAILING);
 		
 		lblStock = new JLabel("Stock:");
 		lblStock.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -208,35 +209,5 @@ public class VistaPrototipo
 		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnDelete.setBounds(308, 16, 84, 23);
 		pnlCrud.add(btnDelete);
-	}
-	public JLabel getLblStock() {
-		return lblStock;
-	}
-	public JLabel getLblMarca() {
-		return lblMarca;
-	}
-	public JLabel getLblNom() {
-		return lblNom;
-	}
-	public JLabel getLblId() {
-		return lblId;
-	}
-	public JLabel getLblPrecio() {
-		return lblPrecio;
-	}
-	public JLabel getLblCategoria() {
-		return lblCategoria;
-	}
-	public JButton getBtnSiguiente() {
-		return btnSiguiente;
-	}
-	public JButton getBtnPrimero() {
-		return btnPrimero;
-	}
-	public JButton getBtnAnterior() {
-		return btnAnterior;
-	}
-	public JButton getBtnUltimo() {
-		return btnUltimo;
 	}
 }
