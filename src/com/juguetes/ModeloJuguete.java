@@ -17,7 +17,7 @@ public class ModeloJuguete
 	private static Connection conectar() 
 	{
 		String server = "jdbc:mysql://localhost/jugueteriajc";
-		String user = "root";
+		String user = "andres";
 		String pass = "qwerty123456";
 		
 		try
